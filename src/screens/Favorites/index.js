@@ -4,7 +4,7 @@ import {Text} from 'react-native'
 const Favorites = () => {
     return (
         <Container>
-            <Text>Favorites</Text>
+            <Text>Favorites teste</Text>
         </Container>
     )
 }

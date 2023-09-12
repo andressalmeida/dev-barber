@@ -1,7 +1,7 @@
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+import Home from '../Home';
 import Appointments from '../Appointments';
 import Favorites from '../Favorites';
-import Home from '../Home';
 import Profile from '../Profile';
 import Search from '../Search';
 import CustomTabBar from '../../components/CustomTabBar';
