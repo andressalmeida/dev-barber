@@ -12,6 +12,7 @@ import {
     ListArea
 
 } from './styles'
+import { RefreshControl } from 'react-native'
 import SearchIcon from '../../assets/search.svg'
 import MyLocationIcon from '../../assets/my_location.svg'
 import { useNavigation } from '@react-navigation/native'
@@ -28,6 +29,7 @@ const Home = () => {
     const [coords, setCoords] = useState(null);
     const [loading, setLoading] = useState(false)
     const [list, setList] = useState([])
+    const [refreshing, setRefreshing] = useState(false)
 
     const handleLocationFinder = async () => {
         setCoords(null);
@@ -53,7 +55,15 @@ const Home = () => {
         setLoading(true)
         setList([])
 
-        let res = await Api.getBarbers()
+        let lat = null;
+        let lng = null;
+
+        if(coords) {
+            lat = coords.latitude;
+            lng = coords.longitude;
+        }
+
+        let res = await Api.getBarbers(lat, lng, location)
 
         if(res.error === '') {
             if(res.loc) {
@@ -72,9 +82,21 @@ const Home = () => {
         getBarbers();
     }, [])
 
+    const onRefresh = () => {
+        setRefreshing(false)
+        getBarbers();
+    }
+
+    const handleLocationSearch = () => {
+        setCoords({});
+        getBarbers();
+    }
+
     return (
            <Container>
-        <Scroller>
+        <Scroller refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }>
             <HeaderArea>
                 <HeaderTitle numberOfLines={2}>Encontre o seu barbeiro favorito</HeaderTitle>
                 <SearchButton onPress={() => navigation.navigate('Search')}>
@@ -88,6 +110,7 @@ const Home = () => {
                 placeholderTextColor="#FFF"
                 value={location}
                 onChangeText={t => setLocation(t)}
+                onEndEditing={handleLocationSearch}
                 />
                 <LocationFinder onPress={handleLocationFinder}>
                     <MyLocationIcon width="24" height="24" fill="#fff"/> 

@@ -1,16 +1,46 @@
 import styled from 'styled-components/native'
+import Stars from './Stars'
 
-const Area = styled.TouchableOpacity``
+const Area = styled.TouchableOpacity`
+background-color: #fff;
+margin-bottom: 20px;
+border-radius: 20px;
+padding: 15px;
+flex-direction: row;
 
-const Avatar = styled.Image``
+`
 
-const InfoArea = styled.View``
+const Avatar = styled.Image`
+    width: 88px;
+    height: 88px;
+    border-radius: 20px;
 
-const Username = styled.Text``
+`
 
-const SeeProfileButton = styled.View``
+const InfoArea = styled.View`
+margin-left: 20px;
+justify-content: space-between;
 
-const SeeProfileButtonText = styled.Text``
+`
+
+const Username = styled.Text`
+font-size: 17px;
+font-weight: bold;
+`
+
+const SeeProfileButton = styled.View`
+width: 85px;
+height: 26px;
+border: 1px solid #4eadbe;
+border-radius: 10px;
+justify-content: center;
+align-items: center;
+`
+
+const SeeProfileButtonText = styled.Text`
+font-size: 13px;
+color: #268596;
+`
 
 
 
@@ -20,6 +50,8 @@ const BarberItem = ({data}) => {
         <Avatar source={{uri: data.avatar}} />
         <InfoArea>
             <Username>{data.name}</Username>
+
+            <Stars stars={data.stars} showNumber={true}/>
 
             <SeeProfileButton>
             <SeeProfileButtonText>Ver Perfil</SeeProfileButtonText>
